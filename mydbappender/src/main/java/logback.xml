@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+    
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>file.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>file.log.%d{yyyy-MM-dd HH:mm:ss.SSS}</FileNamePattern>
+        </rollingPolicy>
+        <encoder>
+        <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+    
+    <appender name="db" class="ch.qos.logback.classic.db.DBAppender">
+        <connectionSource
+            class="ch.qos.logback.core.db.DriverManagerConnectionSource">
+            <driverClass>org.postgresql.Driver</driverClass>
+            <url>jdbc:postgresql://127.0.0.1:5432/testdb</url>
+            <user>myadmin</user>
+            <password>myadmin</password>
+        </connectionSource>
+    </appender>
+
+    <!-- the level of the root level is set to DEBUG by default. -->
+    <root level="TRACE">
+        <appender-ref ref="stdout" />
+        <!-- <appender-ref ref="file" /> -->
+         <appender-ref ref="db" />
+    </root>
+</configuration>
