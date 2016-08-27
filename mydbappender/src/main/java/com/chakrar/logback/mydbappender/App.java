@@ -18,21 +18,19 @@ public class App {
 
 	
 	public App () {
-		log.info("Class instance created at {}", 
-                DateFormat.getInstance().format(new Date()));
+		
+		log.info("Inside App Constructor...creating instance"+ DateFormat.getInstance().format(new Date()));
 	}
 	
     public static void main( String[] args )
     {
-    	log.warn("Running code...");
-        new App().appendToDb();
-        log.debug("Code execution complete.");
+    	log.warn("main...");
+        new App().writeToDB();
+        log.error("Exception ", new RuntimeException("Testing Exception"));
     }
 
 
-	private void appendToDb() {
-	      log.debug("In appendToDb");
-	      log.debug("appendToDb complete");
-		
+	private void writeToDB() {
+	      log.debug("Writing to DB");
 	}
 }
