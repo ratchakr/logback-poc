@@ -9,17 +9,30 @@
     </appender>
     
     <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>file.log</file>
+        <file>csi-event.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>file.log.%d{yyyy-MM-dd HH:mm:ss.SSS}</FileNamePattern>
+            <FileNamePattern>csi-event.log.%d{yyyy-MM-dd HH:mm:ss.SSS}</FileNamePattern>
         </rollingPolicy>
         <encoder>
-        <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %msg%n</pattern>
+        <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS},%msg%n</pattern>
         </encoder>
     </appender>
     
     
-    <appender name="db" class="ch.qos.logback.classic.db.DBAppender">
+<!--      <appender name="db" class="ch.qos.logback.classic.db.DBAppender">
+        <connectionSource
+            class="ch.qos.logback.core.db.DriverManagerConnectionSource">
+		<dataSource
+        class="com.mchange.v2.c3p0.ComboPooledDataSource">            
+            <driverClass>org.postgresql.Driver</driverClass>
+            <url>jdbc:postgresql://127.0.0.1:5432/testdb</url>
+            <user>myadmin</user>
+            <password>myadmin</password>
+            </dataSource>
+        </connectionSource>
+    </appender> --> 
+
+	<appender name="db" class="com.chakrar.logback.mydbappender.CsiDBAppender">
         <connectionSource
             class="ch.qos.logback.core.db.DriverManagerConnectionSource">
             <driverClass>org.postgresql.Driver</driverClass>
@@ -29,10 +42,16 @@
         </connectionSource>
     </appender>
 
+<!-- 	<logger name="csi.event.log" level="TRACE" additivity="false">
+	    <appender-ref ref="stdout" />
+		<appender-ref ref="file" />
+        <appender-ref ref="db" />
+    </logger> -->
+
     <!-- the level of the root level is set to DEBUG by default. -->
     <root level="TRACE">
-        <appender-ref ref="stdout" />
-        <!-- <appender-ref ref="file" /> -->
+        <!--  <appender-ref ref="stdout" />
+        <appender-ref ref="file" /> -->
          <appender-ref ref="db" />
     </root>
 </configuration>
